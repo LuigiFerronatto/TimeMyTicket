@@ -1,0 +1,244 @@
+/* Estilos para os componentes da extensão - Design melhorado para HubSpot */
+
+.ticket-timer-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  position: relative;
+  margin-left: 8px;
+  cursor: pointer;
+  border-radius: 16px;
+  transition: all 0.2s ease;
+  z-index: 90;
+  font-family: 'Lexend', 'Nunito Sans', sans-serif;
+  color: #33475b;
+  background-color: #f0f3f8;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  height: 24px;
+  vertical-align: middle;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  white-space: nowrap;
+  font-size: 12px;
+  overflow: hidden;
+}
+
+/* Estado mínimo (apenas ícone) */
+.ticket-timer-icon.minimized {
+  width: 24px;
+  justify-content: center;
+  padding: 2px;
+}
+
+/* Estado expandido (com tempo) */
+.ticket-timer-icon.expanded {
+  padding: 2px 8px 2px 4px;
+  min-width: 76px;
+  justify-content: space-between;
+}
+
+.ticket-timer-icon:hover {
+  background-color: #e5ebf5;
+  border-color: rgba(0, 0, 0, 0.12);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.ticket-timer-icon svg {
+  color: #33475b;
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* Estilo quando o timer está ativo */
+.ticket-timer-icon.active {
+  background-color: #d6e8ff;
+  border-color: #0091ae;
+}
+
+.ticket-timer-icon.active svg {
+  color: #0091ae;
+  animation: pulse 2s infinite;
+}
+
+.timer-display {
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  color: #33475b;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  width: 0;
+  letter-spacing: -0.3px;
+}
+
+.ticket-timer-icon.expanded .timer-display {
+  opacity: 1;
+  width: auto;
+  margin-left: 3px;
+}
+
+.ticket-timer-icon.active .timer-display {
+  color: #0091ae;
+}
+
+/* Indicador visual de cronometragem ativa */
+.ticket-timer-icon.active::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: #ff5c35;
+  animation: blink 1s infinite;
+}
+
+/* Tooltip para indicar função */
+.ticket-timer-icon:hover::after {
+  content: "Cronometrar tempo";
+  position: absolute;
+  bottom: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #33475b;
+  color: #ffffff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  white-space: nowrap;
+  z-index: 1000;
+  opacity: 0.95;
+  pointer-events: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.ticket-timer-icon.active:hover::after {
+  content: "Pausar cronômetro";
+}
+
+/* Animação de pulso para o timer ativo */
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Animação do indicador de cronômetro ativo */
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Ajustes para integração melhor com a interface do HubSpot */
+.Tag__StyledTag-sc-17azcsq-0 {
+  display: inline-flex;
+  margin-right: 5px;
+}
+
+/* Responsividade para diferentes tamanhos de tela */
+@media (max-width: 768px) {
+  .ticket-timer-icon {
+    height: 22px;
+  }
+  
+  .ticket-timer-icon.minimized {
+    width: 22px;
+  }
+  
+  .ticket-timer-icon svg {
+    width: 12px;
+    height: 12px;
+  }
+  
+  .timer-display {
+    font-size: 10px;
+  }
+}
+
+/* Popup da extensão */
+.timer-popup {
+  width: 320px;
+  font-family: 'Nunito Sans', sans-serif;
+  color: #33475b;
+  background-color: #ffffff;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.timer-popup h1 {
+  font-size: 18px;
+  color: #0091ae;
+  margin-bottom: 12px;
+}
+
+.timer-popup .btn {
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: none;
+  text-align: center;
+}
+
+.timer-popup .btn-primary {
+  background-color: #0091ae;
+  color: #ffffff;
+}
+
+.timer-popup .btn-secondary {
+  background-color: #f5f8fa;
+  border: 1px solid #cbd6e2;
+  color: #33475b;
+}
+
+.timer-popup .btn-primary:hover {
+  background-color: #007a8c;
+}
+
+.timer-popup .btn-secondary:hover {
+  background-color: #eaf0f6;
+}
+
+.timer-popup .btn-danger {
+  background-color: #ff5c35;
+  color: #ffffff;
+}
+
+.timer-popup .btn-danger:hover {
+  background-color: #e54c2e;
+}
+
+/* Animações para o popup */
+.timer-popup .fadeIn {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

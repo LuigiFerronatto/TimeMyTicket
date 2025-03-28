@@ -1,0 +1,29 @@
+{
+    "manifest_version": 3,
+    "name": "TimeMyTicket",
+    "version": "1.0",
+    "description": "Cronometra o tempo gasto em tickets do HubSpot",
+    "permissions": ["storage", "tabs", "contextMenus", "downloads"],
+    "host_permissions": [
+      "https://*.hubspot.com/*"
+    ],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "content_scripts": [
+      {
+        "matches": ["https://*.hubspot.com/*"],
+        "js": ["content.js"],
+        "css": ["styles.css"]
+      }
+    ],
+    "icons": {
+      "128": "icon128.png"
+    },
+    "action": {
+      "default_popup": "popup.html",
+      "default_icon": {
+        "128": "icon128.png"
+      }
+    }
+  }

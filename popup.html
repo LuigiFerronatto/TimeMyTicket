@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TimeMyTicket</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Brand Colors */
+      --blip-light: #D6E8FF;
+      --blip-blue-brand: #0091ae;
+      --blip-action: #007a8c;
+      --blip-dark: #0C4EC0;
+      --blip-night: #072F73;
+      
+      /* Hubspot Colors */
+      --hs-blue: #0091ae;
+      --hs-light-blue: #D6E8FF;
+      --hs-orange: #ff5c35;
+      --hs-text: #33475b;
+      --hs-border: #cbd6e2;
+      --hs-bg-light: #f5f8fa;
+      --hs-bg-lighter: #f0f3f8;
+    
+      /* Neutral Colors */
+      --black: #000000;
+      --gray-dark: #33475b;
+      --gray-medium: #516f90;
+      --gray-light: #7c98b6;
+      --white: #ffffff;
+    
+      /* Surface Colors */
+      --surface-0: #ffffff;
+      --surface-1: #f5f8fa;
+      --surface-2: #eaf0f6;
+    
+      /* Border Colors */
+      --border-1: rgba(0, 0, 0, 0.2);
+      --border-2: rgba(0, 0, 0, 0.12);
+      --border-3: rgba(0, 0, 0, 0.06);
+    
+      /* Typography */
+      --font-primary: 'Nunito Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-secondary: 'Lexend', 'Nunito Sans', sans-serif;
+      --font-mono: 'Courier New', monospace;
+      
+      /* Font Sizes */
+      --fs-h1: 18px;
+      --fs-h2: 16px;
+      --fs-p1: 14px;
+      --fs-p2: 13px;
+      --fs-p3: 12px;
+      --fs-p4: 11px;
+    
+      /* Font Weights */
+      --fw-normal: 400;
+      --fw-semibold: 600;
+      --fw-bold: 700;
+    
+      /* Spacing */
+      --spacing-1: 4px;
+      --spacing-2: 8px;
+      --spacing-3: 12px;
+      --spacing-4: 16px;
+      --spacing-5: 24px;
+      
+      /* Border Radius */
+      --radius-sm: 4px;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      
+      /* Shadows */
+      --shadow-1: 0 2px 4px rgba(0, 0, 0, 0.1);
+      --shadow-2: 0 4px 8px rgba(0, 0, 0, 0.12);
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: var(--font-primary);
+      color: var(--hs-text);
+      background-color: var(--surface-0);
+      width: 360px;
+      min-height: 450px;
+      padding: var(--spacing-4);
+    }
+    
+    header {
+      display: flex;
+      align-items: center;
+      margin-bottom: var(--spacing-4);
+      padding-bottom: var(--spacing-3);
+      border-bottom: 1px solid var(--border-3);
+    }
+    
+    h1 {
+      font-family: var(--font-secondary);
+      font-size: var(--fs-h1);
+      color: var(--hs-blue);
+      font-weight: var(--fw-bold);
+      margin: 0;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background-color: var(--blip-light);
+      border-radius: 50%;
+      margin-right: var(--spacing-3);
+    }
+    
+    .logo svg {
+      color: var(--hs-blue);
+    }
+    
+    .active-timer-section {
+      background-color: var(--hs-bg-light);
+      border-radius: var(--radius-md);
+      padding: var(--spacing-3);
+      margin-bottom: var(--spacing-4);
+    }
+    
+    .section-title {
+      font-family: var(--font-secondary);
+      font-size: var(--fs-p1);
+      font-weight: var(--fw-semibold);
+      color: var(--hs-text);
+      margin-bottom: var(--spacing-2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .help-text {
+      font-size: var(--fs-p4);
+      color: var(--gray-medium);
+      font-weight: var(--fw-normal);
+    }
+    
+    .active-timer-content {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-2);
+    }
+    
+    .timer-info {
+      font-size: var(--fs-p2);
+      line-height: 1.4;
+      margin-bottom: var(--spacing-2);
+    }
+    
+    .timer-value {
+      font-family: var(--font-mono);
+      font-weight: var(--fw-bold);
+      color: var(--hs-blue);
+      font-size: var(--fs-h1);
+      letter-spacing: -0.3px;
+    }
+    
+    .timer-label {
+      font-size: var(--fs-p3);
+      color: var(--gray-medium);
+      margin-bottom: var(--spacing-1);
+    }
+    
+    .actions {
+      display: flex;
+      gap: var(--spacing-2);
+      margin-bottom: var(--spacing-4);
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-primary);
+      font-weight: var(--fw-semibold);
+      font-size: var(--fs-p2);
+      line-height: 1;
+      padding: var(--spacing-2) var(--spacing-3);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      border: none;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+    
+    .btn-primary {
+      background-color: var(--hs-blue);
+      color: var(--white);
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--blip-action);
+      box-shadow: var(--shadow-1);
+    }
+    
+    .btn-secondary {
+      background-color: var(--hs-bg-light);
+      color: var(--hs-text);
+      border: 1px solid var(--hs-border);
+    }
+    
+    .btn-secondary:hover {
+      background-color: var(--surface-2);
+      box-shadow: var(--shadow-1);
+    }
+    
+    .btn-danger {
+      background-color: var(--hs-orange);
+      color: var(--white);
+    }
+    
+    .btn-danger:hover {
+      background-color: #e54c2e;
+      box-shadow: var(--shadow-1);
+    }
+    
+    .btn svg {
+      margin-right: var(--spacing-1);
+    }
+    
+    .timer-list-section {
+      margin-bottom: var(--spacing-4);
+    }
+    
+    .timer-list {
+      max-height: 300px;
+      overflow-y: auto;
+      border: 1px solid var(--border-3);
+      border-radius: var(--radius-md);
+      background-color: var(--surface-0);
+    }
+    
+    .timer-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: var(--spacing-3);
+      border-bottom: 1px solid var(--border-3);
+    }
+    
+    .timer-item:last-child {
+      border-bottom: none;
+    }
+    
+    .timer-item.active {
+      background-color: var(--blip-light);
+    }
+    
+    .timer-details {
+      flex: 1;
+      min-width: 0;
+    }
+    
+    .ticket-title {
+      font-weight: var(--fw-semibold);
+      font-size: var(--fs-p1);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: var(--spacing-1);
+    }
+    
+    .ticket-id {
+      font-size: var(--fs-p3);
+      color: var(--gray-medium);
+      margin-bottom: var(--spacing-1);
+    }
+    
+    .ticket-owner, .ticket-status {
+      font-size: var(--fs-p3);
+      color: var(--gray-medium);
+      margin-bottom: var(--spacing-1);
+    }
+    
+    .timer-value-display {
+      font-family: var(--font-mono);
+      font-weight: var(--fw-bold);
+      color: var(--hs-blue);
+      font-size: var(--fs-p1);
+      min-width: 70px;
+      text-align: right;
+      padding-left: var(--spacing-2);
+    }
+    
+    .loading, .empty-state {
+      padding: var(--spacing-4);
+      text-align: center;
+      color: var(--gray-medium);
+      font-size: var(--fs-p2);
+    }
+    
+    .footer {
+      font-size: var(--fs-p3);
+      color: var(--gray-medium);
+      text-align: center;
+      margin-top: var(--spacing-5);
+      padding-top: var(--spacing-3);
+      border-top: 1px solid var(--border-3);
+    }
+    
+    .success-message {
+      position: fixed;
+      bottom: var(--spacing-4);
+      left: var(--spacing-4);
+      right: var(--spacing-4);
+      background-color: #00bda5;
+      color: var(--white);
+      padding: var(--spacing-3);
+      border-radius: var(--radius-md);
+      font-size: var(--fs-p2);
+      text-align: center;
+      animation: fadeIn 0.3s ease, fadeOut 0.3s ease 2.7s;
+      box-shadow: var(--shadow-1);
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes fadeOut {
+      from { opacity: 1; transform: translateY(0); }
+      to { opacity: 0; transform: translateY(10px); }
+    }
+    
+    /* Scroll personalizado */
+    .timer-list::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    .timer-list::-webkit-scrollbar-track {
+      background: var(--surface-1);
+      border-radius: var(--radius-md);
+    }
+    
+    .timer-list::-webkit-scrollbar-thumb {
+      background-color: var(--gray-light);
+      border-radius: var(--radius-md);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <polyline points="12 6 12 12 16 14"></polyline>
+      </svg>
+    </div>
+    <h1>HubSpot Ticket Timer</h1>
+  </header>
+  
+  <div class="active-timer-section">
+    <div class="section-title">Timer Atual</div>
+    <div class="active-timer-content" id="active-timer-info">
+      <div class="timer-info">
+        Nenhum timer ativo no momento.
+      </div>
+    </div>
+  </div>
+  
+  <div class="actions">
+    <button id="export-btn" class="btn btn-primary">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+        <polyline points="7 10 12 15 17 10"></polyline>
+        <line x1="12" y1="15" x2="12" y2="3"></line>
+      </svg>
+      Exportar Relatório
+    </button>
+    <button id="reset-all-btn" class="btn btn-secondary">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 6h18"></path>
+        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+      </svg>
+      Resetar Todos
+    </button>
+  </div>
+  
+  <div class="timer-list-section">
+    <div class="section-title">
+      Tickets Monitorados
+      <span class="help-text">(Clique direito para resetar)</span>
+    </div>
+    <div class="timer-list" id="timer-list">
+      <div class="loading">Carregando...</div>
+    </div>
+  </div>
+  
+  <div class="footer">
+    HubSpot Ticket Timer v1.0 • Desenvolvimento
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
