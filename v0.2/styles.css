@@ -1,0 +1,680 @@
+/* TimeMyTicket - Estilos aprimorados usando o design system */
+
+/* Importando fontes */
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&family=Nunito+Sans:wght@400;600;700&display=swap');
+
+:root {
+  /* Brand Colors */
+  --blip-light: #C5D9FB;
+  --blip-blue-brand: #0096fa;
+  --blip-action: #1968F0;
+  --blip-dark: #0C4EC0;
+  --blip-night: #072F73;
+  
+  /* HubSpot Colors */
+  --hs-blue: #0091ae;
+  --hs-light-blue: #D6E8FF;
+  --hs-orange: #ff5c35;
+  
+  /* Text Colors */
+  --color-content-default: #454545;
+  --color-content-disable: #636363;
+  --color-content-ghost: #8c8c8c;
+  
+  /* Surface Colors */
+  --color-surface-0: #ffffff;
+  --color-surface-1: #f6f6f6;
+  --color-surface-2: #e0e0e0;
+  
+  /* Border Colors */
+  --color-border-1: rgba(0, 0, 0, 0.2);
+  --color-border-2: rgba(0, 0, 0, 0.12);
+  --color-border-3: rgba(0, 0, 0, 0.06);
+  
+  /* Typography */
+  --font-primary: "Nunito Sans", sans-serif;
+  --font-secondary: "Lexend", sans-serif;
+  --font-mono: "Courier New", monospace;
+  
+  /* Font Sizes */
+  --fs-h1: 18px;
+  --fs-h2: 16px;
+  --fs-p1: 14px; 
+  --fs-p2: 13px;
+  --fs-p3: 12px;
+  --fs-p4: 11px;
+  
+  /* Font Weights */
+  --fw-normal: 400;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  
+  /* Spacing */
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-circle: 50%;
+  
+  /* Shadows */
+  --shadow-1: 0 2px 8px rgba(0, 0, 0, 0.15);
+  --shadow-2: 0 4px 12px rgba(0, 0, 0, 0.12);
+  
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  
+  /* Phase Colors */
+  --phase-color-1: #FF5C35;
+  --phase-color-2: #FFB100;
+  --phase-color-3: #F2854C;
+  --phase-color-4: #00A4BD;
+  --phase-color-5: #00BDA5;
+  --phase-color-6: #6A78D1;
+  --phase-color-7: #7C98B6;
+  --phase-color-8: #0091AE;
+  --phase-color-9: #9FB5C9;
+  --phase-color-10: #D5DAE0;
+  --phase-color-11: #516F90;
+  --phase-color-12: #32373C;
+}
+
+/* Botão do cronômetro - Completamente redesenhado */
+.ticket-timer-icon {
+  /* Posicionamento e layout */
+  position: absolute;
+  top: var(--spacing-2);
+  right: var(--spacing-2);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  
+  /* Aparência visual */
+  height: 28px;
+  border-radius: 14px;
+  background-color: var(--hs-bg-light);
+  border: 1px solid var(--color-border-3);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  
+  /* Tipografia */
+  font-family: var(--font-secondary);
+  font-size: var(--fs-p3);
+  font-weight: var(--fw-semibold);
+  color: var(--hs-text);
+  
+  /* Interatividade */
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Estado minimizado (apenas ícone) */
+.ticket-timer-icon.minimized {
+  width: 28px;
+  justify-content: center;
+  padding: var(--spacing-1);
+}
+
+/* Estado expandido (com tempo) */
+.ticket-timer-icon.expanded {
+  padding-left: var(--spacing-1);
+  padding-right: var(--spacing-2);
+  min-width: 88px;
+  justify-content: space-between;
+}
+
+/* Efeito hover */
+.ticket-timer-icon:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-1);
+  background-color: var(--hs-light-blue);
+  border-color: var(--hs-blue);
+}
+
+/* Ícone do cronômetro */
+.ticket-timer-icon svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: var(--hs-blue);
+  margin: 0 var(--spacing-1);
+}
+
+/* Display do tempo */
+.timer-display {
+  font-family: var(--font-mono);
+  font-size: var(--fs-p3);
+  font-weight: var(--fw-semibold);
+  margin-left: var(--spacing-1);
+  letter-spacing: -0.3px;
+  opacity: 0;
+  transform: translateX(-5px);
+  transition: all var(--transition-fast);
+}
+
+.ticket-timer-icon.expanded .timer-display {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Estado ativo - cronômetro em funcionamento */
+.ticket-timer-icon.active {
+  background-color: var(--hs-light-blue);
+  border-color: var(--hs-blue);
+}
+
+.ticket-timer-icon.active svg {
+  color: var(--hs-blue);
+  animation: pulse 1.5s infinite;
+}
+
+.ticket-timer-icon.active .timer-display {
+  color: var(--hs-blue);
+}
+
+/* Indicador visual pulsante */
+.ticket-timer-icon.active::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-circle);
+  background-color: var(--hs-orange);
+  animation: blink 2s infinite;
+}
+
+/* Tooltip com explicação da função */
+.ticket-timer-icon:hover::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: -32px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--hs-text);
+  color: white;
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-p4);
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: var(--shadow-1);
+  font-family: var(--font-primary);
+  font-weight: var(--fw-normal);
+  z-index: 1000;
+}
+
+/* Animações */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes blink {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Menu de contexto para o ticket timer */
+.timer-context-menu {
+  position: absolute;
+  background: white;
+  border: 1px solid var(--color-border-3);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-1);
+  padding: var(--spacing-1) 0;
+  min-width: 180px;
+  z-index: 10000;
+  font-family: var(--font-primary);
+}
+
+.timer-context-menu-item {
+  padding: var(--spacing-2) var(--spacing-3);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  cursor: pointer;
+  font-family: var(--font-primary);
+  font-size: var(--fs-p2);
+  color: var(--hs-text);
+}
+
+.timer-context-menu-item:hover {
+  background: var(--hs-bg-light);
+}
+
+.timer-context-menu-item.danger {
+  color: var(--hs-orange);
+}
+
+.timer-context-menu-item.danger svg {
+  color: var(--hs-orange);
+}
+
+.timer-context-menu-item svg {
+  color: var(--gray-medium);
+}
+
+/* Estilos para notificações toast */
+.ticket-timer-toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: var(--spacing-3) var(--spacing-4);
+  border-radius: var(--radius-md);
+  color: white;
+  font-family: var(--font-primary);
+  font-size: var(--fs-p1);
+  font-weight: var(--fw-semibold);
+  box-shadow: var(--shadow-1);
+  z-index: 10000;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.ticket-timer-toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ticket-timer-toast.success {
+  background-color: #00bda5;
+}
+
+.ticket-timer-toast.info {
+  background-color: var(--hs-blue);
+}
+
+.ticket-timer-toast.warning {
+  background-color: #ffab00;
+}
+
+.ticket-timer-toast.error {
+  background-color: var(--hs-orange);
+}
+
+/* Modal para detalhes de fase e adição de tempo */
+.time-my-ticket-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-2);
+  width: 90%;
+  max-width: 500px;
+  z-index: 10001;
+  font-family: var(--font-primary);
+}
+
+.time-my-ticket-modal .modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-3) var(--spacing-4);
+  border-bottom: 1px solid var(--color-border-3);
+}
+
+.time-my-ticket-modal h3 {
+  margin: 0;
+  font-size: var(--fs-h2);
+  color: var(--hs-text);
+  font-family: var(--font-secondary);
+}
+
+.time-my-ticket-modal .close-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--gray-medium);
+}
+
+.time-my-ticket-modal .modal-body {
+  padding: var(--spacing-4);
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.time-my-ticket-modal .phase-details-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.time-my-ticket-modal .phase-details-table th,
+.time-my-ticket-modal .phase-details-table td {
+  padding: var(--spacing-2) var(--spacing-3);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border-3);
+}
+
+.time-my-ticket-modal .phase-details-table th {
+  background: var(--hs-bg-light);
+  color: var(--hs-text);
+  font-weight: var(--fw-semibold);
+}
+
+.time-my-ticket-modal .modal-footer {
+  padding: var(--spacing-3) var(--spacing-4);
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-2);
+  border-top: 1px solid var(--color-border-3);
+}
+
+.time-my-ticket-modal button {
+  padding: var(--spacing-2) var(--spacing-3);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-family: var(--font-primary);
+  font-size: var(--fs-p2);
+}
+
+.time-my-ticket-modal .close-modal-btn {
+  background: var(--hs-bg-light);
+  border: 1px solid var(--hs-border);
+  color: var(--hs-text);
+}
+
+.time-my-ticket-modal .copy-report-btn,
+.time-my-ticket-modal .save-time-btn {
+  background: var(--hs-blue);
+  border: none;
+  color: white;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 10000;
+}
+
+/* Formulário para adicionar tempo */
+.form-group {
+  margin-bottom: var(--spacing-3);
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: var(--spacing-2);
+  font-size: var(--fs-p2);
+  color: var(--hs-text);
+}
+
+.form-control {
+  width: 100%;
+  padding: var(--spacing-2);
+  border: 1px solid var(--hs-border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-primary);
+  font-size: var(--fs-p2);
+}
+
+.time-input-container {
+  display: flex;
+  gap: var(--spacing-3);
+  margin-top: var(--spacing-2);
+}
+
+.time-input {
+  flex: 1;
+}
+
+.time-input input {
+  width: 100%;
+  text-align: center;
+  padding: var(--spacing-2);
+  border: 1px solid var(--hs-border);
+  border-radius: var(--radius-sm);
+}
+
+.time-input label {
+  display: block;
+  text-align: center;
+  margin-top: var(--spacing-1);
+  font-size: var(--fs-p3);
+  color: var(--gray-medium);
+}
+
+/* Adaptações responsivas */
+@media (max-width: 768px) {
+  .ticket-timer-icon {
+    height: 26px;
+    top: var(--spacing-1);
+    right: var(--spacing-1);
+  }
+  
+  .ticket-timer-icon.minimized {
+    width: 26px;
+  }
+  
+  .ticket-timer-icon svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+/* Melhorias na integração com a UI do HubSpot */
+.Card__StyledTitleContainer-sc-1o9oolf-0 {
+  position: relative; /* Garantir que o botão do timer fique posicionado corretamente */
+}
+
+.uiList {
+  position: relative; /* Permitir posicionamento absoluto do botão do timer */
+}
+
+/* Animação de entrada */
+.ticket-timer-icon {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Indicador de fase atual */
+.current-phase-indicator {
+  display: inline-block;
+  font-size: var(--fs-p4);
+  color: var(--gray-dark);
+  background-color: var(--hs-light-blue);
+  padding: 2px var(--spacing-2);
+  border-radius: 10px;
+  margin-left: var(--spacing-2);
+  font-weight: var(--fw-semibold);
+}
+
+/* Loading spinner */
+.loading-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(0, 145, 174, 0.2);
+  border-radius: 50%;
+  border-top-color: var(--hs-blue);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Add these styles to styles.css */
+
+/* Settings Tab Styles */
+.settings-section {
+  margin-bottom: var(--spacing-4);
+}
+
+.settings-group {
+  background-color: var(--surface-1);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-3);
+  margin-bottom: var(--spacing-4);
+}
+
+.settings-group-title {
+  font-family: var(--font-secondary);
+  font-size: var(--fs-p1);
+  font-weight: var(--fw-semibold);
+  color: var(--hs-text);
+  margin-bottom: var(--spacing-3);
+  padding-bottom: var(--spacing-2);
+  border-bottom: 1px solid var(--color-border-3);
+}
+
+.setting-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-2);
+  padding: var(--spacing-2);
+  border-radius: var(--radius-sm);
+}
+
+.setting-item:hover {
+  background-color: var(--surface-1);
+}
+
+.setting-item label {
+  flex: 1;
+  font-size: var(--fs-p2);
+  margin-right: var(--spacing-2);
+}
+
+.color-picker {
+  width: 40px;
+  height: 24px;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.reset-color-btn {
+  background: transparent;
+  border: none;
+  font-size: var(--fs-p3);
+  color: var(--gray-medium);
+  cursor: pointer;
+  padding: var(--spacing-1) var(--spacing-2);
+  margin-left: var(--spacing-2);
+}
+
+.reset-color-btn:hover {
+  color: var(--hs-orange);
+  text-decoration: underline;
+}
+
+.custom-owner-row {
+  display: flex;
+  gap: var(--spacing-2);
+  margin-top: var(--spacing-3);
+  padding-top: var(--spacing-3);
+  border-top: 1px dashed var(--color-border-3);
+}
+
+.custom-owner-row input[type="text"] {
+  flex: 1;
+}
+
+.btn-sm {
+  padding: 4px 8px;
+  font-size: var(--fs-p3);
+}
+
+.custom-owners-list {
+  margin-top: var(--spacing-3);
+}
+
+.custom-owner-item {
+  display: flex;
+  align-items: center;
+  background-color: var(--surface-0);
+  padding: var(--spacing-2);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--spacing-2);
+  border: 1px solid var(--color-border-3);
+}
+
+.custom-owner-item .name {
+  flex: 1;
+  font-size: var(--fs-p2);
+}
+
+.custom-owner-item .color-preview {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  margin-right: var(--spacing-2);
+}
+
+.custom-owner-item .remove-btn {
+  background: transparent;
+  border: none;
+  color: var(--gray-medium);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 2px 6px;
+}
+
+.custom-owner-item .remove-btn:hover {
+  color: var(--hs-orange);
+}
+
+.settings-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--spacing-4);
+}
+
+/* The following styles are for the ticket highlighting in the HubSpot UI */
+/* Add this to content scripts CSS or inject via JavaScript */
+
+/* Base highlight style for tickets */
+.ticket-highlight {
+  position: relative;
+}
+
+.ticket-highlight::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Highlight styles for lanes */
+.lane-highlight-entregues::before {
+  background-color: var(--highlight-color, #00bda5);
+}
+
+.lane-highlight-dispensados::before {
+  background-color: var(--highlight-color, #ff5c35);
+}
+
+.lane-highlight-impedidos::before {
+  background-color: var(--highlight-color, #ffab00);
+}
+
+/* Highlight style for owners */
+.owner-highlight::before {
+  background-color: var(--highlight-color);
+}
